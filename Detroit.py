@@ -22,8 +22,10 @@ async def on_ready():
 
 @client.event
 async def on_guild_join(guild):
+
+
 	with open("prefixes.json", "r") as f:
-		prefixes json.load(f)
+		prefixes = json.load(f)
 
 	prefixes[str(guild.id)] = "."
 
@@ -37,7 +39,7 @@ async def prefix(ctx, prefix):
 	with open("prefixes.json", "r") as f:
 		prefixes = json.load(f)
 
-	prefixes[str(guild.id)] = prefix
+	prefixes[str(ctx.guild.id)] = prefix
 
 	with open("prefixes.json", "w") as f:
 		json.dump(prefix,f)
@@ -167,7 +169,5 @@ async def unban(ctx, *, member):
 			return
 
 	await ctx.send(member+" was not found")
-
-@client.command
 
 client.run(os.environ['DISCORD_TOKEN'])
