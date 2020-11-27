@@ -9,7 +9,7 @@ client.remove_command("help")
 @client.event
 async def on_ready():
 	print('Bot is ready.')
-	await client.change_presence(status=discord.Status.online, activity=discord.Game('Listening to $help'))
+	await client.change_presence(status=discord.Status.online, activity=discord.Game('Listening to .help'))
 
 @client.command()
 async def ping(ctx):
@@ -84,5 +84,17 @@ async def help(ctx):
 	helpEmbed.add_field(name="Miscellaneous commands", value=";ping, ;8ball, ;info                ")
 
 	await ctx.send(embed=helpEmbed)
+
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason=None):
+	await member.kick(reason=reason)
+
+@client.command()
+async def ban(ctx, member : discord.Member, *, reason=None):
+	await member.ban(reason=reason)
+
+@client.command()
+async def unban(ctx, member : discord.Member, *, reason=None):
+	await member.unban(reason=reason)
 
 client.run(os.environ['DISCORD_TOKEN'])
