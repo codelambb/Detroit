@@ -101,15 +101,14 @@ async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
 @commands.has_permissions(ban_members=True, administrator=True)
 async def unban(ctx, *, member):
 	banned_users = await ctx.guild.bans()
-	member_name, member_disc = member.split('#')
+	member_name, member_discriminator = member.split('#')
 
-	for banned_entry in banned_users:
-		user = banned_entry.user
+	for ban_entry in banned_users:
+		user = ban_entry.user
 
-		if(user.name, user.discrminator) == (member_name,member_disc):
-
+		if(user.name, user.discriminator) == (member_name,member_discriminator):
 			await ctx.guild.unban(user)
-			await ctx.send(member_name + " has been unbanned")
+			await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
 			return
 
 	await ctx.send(member+" was not found")
