@@ -2,11 +2,12 @@ import discord
 import random
 from discord.ext import commands
 import os
-
-client = commands.Bot(command_prefix = ".")
+import intents
 
 prefixes = [".",";","d!"]
 client = commands.Bot(command_prefix=list(prefixes),intents = intents)
+
+client = commands.Bot(command_prefix = "prefixes")
 
 client.remove_command("help")
 
