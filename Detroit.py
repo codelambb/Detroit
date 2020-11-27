@@ -159,4 +159,5 @@ async def kill(ctx, user):
 		await ctx.send(f"{user} presses a random button and is teleported to the height of 100m, allowing them to fall to their inevitable death.\nMoral of the story: Don't go around pressing random buttons.")
 	if k == 5:
 		await ctx.send(f'{user} is sucked into Minecraft. Dank Memer, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
-client.run('NzgxMzc5Mjg2OTI0OTE4Nzg1.X78yKw.h8Z85bGbH9DbRvHQu5FDfJ0W9A0')
+
+client.run(client.run(os.environ['DISCORD_TOKEN']))
