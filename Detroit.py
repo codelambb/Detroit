@@ -93,14 +93,25 @@ async def kick(ctx, member: discord.Member, *, reason=None):
 
 @client.command()
 @commands.has_permissions(ban_members=True, administrator=True)
-async def ban(ctx, self, mem: discord.Member, *, reason=None):
+async def ban(ctx, mem: discord.Member, *, reason=None):
 	await user.ban(reason=reason)
 	await ctx.send(f'Banned {mem} from the server.')
 
-@client.command()
-@commands.has_permissions(mute_members=True)
-async def mute(ctx, self, user: discord.Member, *, reason=None):
-	await member.mute(reason=reason)
-	await ctx.send(f'User {user} has been muted.')
+@client.command(aliases=['ub'])
+@commands.has_permissions(ban_members=True, administrator=True)
+async def unban(ctx, *, member):
+	banned_users = await ctx.guild.bans()
+	member_name, member_disc = member.split('#')
 
+	for banned_entry in banned_users:
+		user = banned_entry.user
+
+		if(user.name, user.discrminator) == (member_name,member_disc):
+
+			await ctx.guild.unban(user)
+			await ctx.send(member_name + " has been unbanned")
+			return
+
+	await ctx.send(member+" was not found")
+	
 client.run(os.environ['DISCORD_TOKEN'])
