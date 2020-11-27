@@ -86,12 +86,12 @@ async def help(ctx):
 	await ctx.send(embed=helpEmbed)
 
 @client.command(name='kick', aliases=['kickuser'])
-@command.has_permissions(kick_members=True, administrator=True)
+@commands.has_permissions(kick_members=True, administrator=True)
 async def kick_user_command(ctx, arg1):
 	await ctx.channel.send("Kicked {}".format(arg1))
 
 @client.command(name='ban', aliases=['banuser'])
-@command.has_permissions(ban_members=True, administrator=True)
+@commands.has_permissions(ban_members=True, administrator=True)
 async def ban_user_command(ctx, arg1):
 	await ctx.channel.send("Banned {}".format(arg1))
 
