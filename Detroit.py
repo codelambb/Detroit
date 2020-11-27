@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands, tasks
-from discord.utild import get
 import os
 from random import choice
 
