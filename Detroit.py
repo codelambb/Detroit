@@ -127,4 +127,18 @@ async def mocd(ctx):
 	modEmbed.set_footer(text="More moderation commands will be added soon")
 	await ctx.send(embed=modEmbed)
 
+@client.command()
+async def micd(ctx):
+	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot ping```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n")
+	misEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
+	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
+	await ctx.send(embed=misEmbed)
+
+@client.command()
+async def invite(ctx):
+	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
+	invEmbed.add_field(name="Invite Link", value="https://rb.gy/9wa5wa")
+	invEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
+
 client.run(os.environ['DISCORD_TOKEN'])
