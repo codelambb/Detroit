@@ -63,12 +63,12 @@ async def info(ctx):
 	n = random.randint(0,2)
 	if n == 0:
 		myEmbed = discord.Embed(tittle="Information", color=0x00FFFF)
-		myEmbed.add_field(name="Version Code:", value="```v1.0.0```", inline=False)
-		myEmbed.add_field(name="Date Released:", value="```November 25th, 2020```", inline=False)
-		myEmbed.add_field(name="Author:", value="```DarkLord#2292```", inline=False)
-		myEmbed.set_author(name="Detroid")
+		myEmbed.add_field(name="Detroit", value="Detroit is a multipurpose bot which gives you access to variety of features,\nlike Fun commands and Moderation commands(Still in BETA mode)", inline=False)
+		myEmbed.add_field(name="Version Code:", value="```v1.0.0```", inline=True)
+		myEmbed.add_field(name="Date Released:", value="```November 25th, 2020```", inline=True)
+		myEmbed.add_field(name="Bot Creator:", value="```DarkLord#2292```", inline=False)
 		myEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
-	
+		myEmbed.set_footer(text="Special thanks to RefinedDev#8759")	
 		await ctx.send(embed=myEmbed)
 
 	if n == 1:
@@ -94,8 +94,7 @@ async def info(ctx):
 @client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
-	helpEmbed.set_author(name="Help Menu:")
-	helpEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
+	helpEmbed.set_author(name="Help Menu:\nPrefixes='**.**','**;**','**d!**','**$**'")
 	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .mocd to open that```", inline=True)
 	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .micd to open that```", inline=True)
 
@@ -132,7 +131,7 @@ async def unban(ctx, *, member):
 @client.command(aliases=['mo'])
 async def mocd(ctx):
 	modEmbed = discord.Embed(tittle="Moderation Command Menu", color=0xFFFF00)
-	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n")
+	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n```addrole (role) (user): Adds the specified role to the specified user```\n```removerole (role) (user): Removes the specified role from the specified user```\n")
 	modEmbed.set_footer(text="More moderator commands will be added soon")
 	await ctx.send(embed=modEmbed)
 
