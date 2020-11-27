@@ -2,19 +2,26 @@ import discord
 import random
 from discord.ext import commands
 import os
+import choice
 
 intents = discord.Intents.all()
-prefixes = [".",";","d!"]
+prefixes = [".","$","d!",";"]
 client = commands.Bot(command_prefix=list(prefixes),intents = intents)
 
 client = commands.Bot(command_prefix = prefixes)
+
+status = ['Listening to .help', 'Listening to ;help', 'Listening to $help', 'Listening to d!help']
 
 client.remove_command("help")
 
 @client.event
 async def on_ready():
+	change_status.start()
 	print('Bot is ready.')
-	await client.change_presence(status=discord.Status.online, activity=discord.Game('Listening to .help'))
+
+@tasks.loop(seconds=20)
+async def change_status():
+	await client.change_presence(activity=discord.Game(choice(status)))
 
 @client.command()
 async def ping(ctx):
