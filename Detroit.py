@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 import os
-from random import choice
+from random import choices
 
 intents = discord.Intents.all()
 prefixes = [".","$","d!",";"]
@@ -57,7 +57,7 @@ async def _8ball(ctx, question):
 				"Very doubtful."]
 	await ctx.send(f'{random.choice(responses)}')
 
-@client.command()
+@client.command(aliases=['i'])
 async def info(ctx):
 	import random
 	n = random.randint(0,2)
@@ -91,7 +91,7 @@ async def info(ctx):
 	
 		await ctx.send(embed=myEmbed)		
 
-@client.command(aliases="h")
+@client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
 	helpEmbed.set_author(name="Help Menu:")
@@ -129,7 +129,7 @@ async def unban(ctx, *, member):
 
 	await ctx.send(member+" was not found")
 
-@client.command()
+@client.command(aliases=['mo'])
 async def mocd(ctx):
 	modEmbed = discord.Embed(tittle="Moderation Command Menu", color=0xFFFF00)
 	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n")
@@ -137,7 +137,7 @@ async def mocd(ctx):
 	modEmbed.set_footer(text="More moderation commands will be added soon")
 	await ctx.send(embed=modEmbed)
 
-@client.command()
+@client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
 	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot ping```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```")
@@ -145,7 +145,7 @@ async def micd(ctx):
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
-@client.command(aliases=["i"])
+@client.command(aliases=["in"])
 async def invite(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
 	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)")
