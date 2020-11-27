@@ -2,16 +2,8 @@ import discord
 import random
 from discord.ext import commands
 import os
-import json
 
-def get_prefix(client,message):
-
-	with open("prefixes.json", "r") as f:
-		prefixes = json.load(f)
-
-	return prefixes[str(message.guild.id)]
-
-client = commands.Bot(command_prefix = get_prefix)
+client = commands.Bot(command_prefix = ".")
 
 client.remove_command("help")
 
@@ -20,54 +12,11 @@ async def on_ready():
 	print('Bot is ready.')
 	await client.change_presence(status=discord.Status.online, activity=discord.Game('Listening to .help'))
 
-@client.event
-async def on_guild_join(guild):
-
-
-	with open("prefixes.json", "r") as f:
-		prefixes = json.load(f)
-
-	prefixes[str(guild.id)] = "."
-
-	with open("prefixes.json", "w") as f:
-		json.dump(prefixes,f)
-
-@client.command(aliases=["changeprefix"])
-@commands.has_permissions(administrator=True)
-async def prefix(ctx, prefix):
-
-	with open("prefixes.json", "r") as f:
-		prefixes = json.load(f)
-
-	prefixes[str(ctx.guild.id)] = prefix
-
-	with open("prefixes.json", "w") as f:
-		json.dump(prefix,f)
-
-	await ctx.send(f"The prefix was changed to {prefix}")
-
-@client.event
-async def on_message(msg):
-	try:
-		if msg.mentions[0] == client.user:
-
-			with open("prefixes.json", "r") as f:
-				prefixes = json.load(f)
-
-			pre = prefixes[str(msg.guild.id)]
-
-			await msg.channel.send(f"My prefix for this server is {pre}")
-
-	except:
-		pass
-
-	await client.process_commands(msg)
-
 @client.command()
 async def ping(ctx):
 	await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
-@client.command()
+@client.command(aliases=["purge", "cls"])
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount))
@@ -137,8 +86,8 @@ async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
 	helpEmbed.set_author(name="Help Menu:")
 	helpEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
-	helpEmbed.add_field(name="Moderation Command Menu", value="```Type ;mocd to open that```", inline=True)
-	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type ;micd to open that```", inline=True)
+	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .mocd to open that```", inline=True)
+	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .micd to open that```", inline=True)
 
 	await ctx.send(embed=helpEmbed)
 
@@ -169,5 +118,13 @@ async def unban(ctx, *, member):
 			return
 
 	await ctx.send(member+" was not found")
+
+@client.command()
+async def mocd(ctx):
+	modEmbed = discord.Embed(tittle="Moderation Command Menu", color=0xFFFF00)
+	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n")
+	modEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
+	modEmbed.set_footer(text="More moderation commands will be added soon")
+	await ctx.send(embed=modEmbed)
 
 client.run(os.environ['DISCORD_TOKEN'])
