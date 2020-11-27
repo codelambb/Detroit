@@ -95,7 +95,7 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 @commands.has_permissions(ban_members=True, administrator=True)
 async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
 	await ctx.send(f'Banned {member} from the server.')
-	await user.ban(reason=reason)
+	await member.ban(reason=reason)
 
 @client.command(aliases=['ub'])
 @commands.has_permissions(ban_members=True, administrator=True)
