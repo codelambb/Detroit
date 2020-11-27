@@ -140,7 +140,7 @@ async def mocd(ctx):
 @client.command()
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
-	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot ping```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n")
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot ping```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n'```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```")
 	misEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
