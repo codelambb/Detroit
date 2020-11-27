@@ -146,4 +146,17 @@ async def invite(ctx):
 	invEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	await ctx.send(embed=invEmbed)
 
-client.run(os.environ['DISCORD_TOKEN'])
+@client.command()
+async def kill(ctx, user):
+	k = random.randint(0,5)
+	if k == 0:
+		await ctx.send(f'You challenged {user} to a fist fight to the death. You won.')
+	if k == 2:
+		await ctx.send(f'{user} had a mid air collision with nyan-cat')
+	if k == 3:
+		await ctx.send(f'{user} fell down a cliff while playing Pokemon Go. Good job on keeping your nose in that puny phone. :iphone:')
+	if k == 4:
+		await ctx.send(f"{user} presses a random button and is teleported to the height of 100m, allowing them to fall to their inevitable death.\nMoral of the story: Don't go around pressing random buttons.")
+	if k == 5:
+		await ctx.send(f'{user} is sucked into Minecraft. Dank Memer, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
+client.run('NzgxMzc5Mjg2OTI0OTE4Nzg1.X78yKw.h8Z85bGbH9DbRvHQu5FDfJ0W9A0')
