@@ -1,8 +1,7 @@
 import discord
-import random
-from discord.ext import commands
+from discord.ext import commands, tasks
 import os
-import choice
+from random import choice
 
 intents = discord.Intents.all()
 prefixes = [".","$","d!",";"]
@@ -155,6 +154,7 @@ async def invite(ctx):
 
 @client.command()
 async def kill(ctx, user):
+	import random
 	k = random.randint(0,5)
 	if k == 0:
 		await ctx.send(f'You challenged {user} to a fist fight to the death. You won.')
