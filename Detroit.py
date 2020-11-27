@@ -5,6 +5,9 @@ import os
 
 client = commands.Bot(command_prefix = ".")
 
+prefixes = [".",";","d!"]
+client = commands.Bot(command_prefix=list(prefixes),intents = intents)
+
 client.remove_command("help")
 
 @client.event
@@ -140,5 +143,6 @@ async def invite(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
 	invEmbed.add_field(name="Invite Link", value="https://rb.gy/9wa5wa")
 	invEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
+	await ctx.send(embed=invEmbed)
 
 client.run(os.environ['DISCORD_TOKEN'])
