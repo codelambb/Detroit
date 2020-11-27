@@ -94,7 +94,7 @@ async def info(ctx):
 @client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
-	helpEmbed.set_author(name="Help Menu:\nPrefixes= ``.``  ``;``  ``d!``  ``$``")
+	helpEmbed.set_author(name="Help Menu:\nPrefixes = ```.```  ```;```  ```d!```  ```$```")
 	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .mocd to open that```", inline=True)
 	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .micd to open that```", inline=True)
 
@@ -138,7 +138,7 @@ async def mocd(ctx):
 @client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
-	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot ping```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```")
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```")
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
