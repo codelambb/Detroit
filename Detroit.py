@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands, tasks
+from discord.utild import get
 import os
 from random import choice
 
@@ -148,7 +149,7 @@ async def micd(ctx):
 @client.command(aliases=["i"])
 async def invite(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
-	invEmbed.add_field(name="Invite Link", value="https://rb.gy/9wa5wa")
+	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)")
 	invEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	await ctx.send(embed=invEmbed)
 
@@ -166,5 +167,21 @@ async def kill(ctx, user):
 		await ctx.send(f"{user} presses a random button and is teleported to the height of 100m, allowing them to fall to their inevitable death.\nMoral of the story: Don't go around pressing random buttons.")
 	if k == 5:
 		await ctx.send(f'{user} is sucked into Minecraft. Dank Memer, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
+
+@client.command(aliases=["a"])
+@commands.has_permissions(manage_roles=True)
+async def addrole(ctx, role: discord.Role, user: discord.Member):
+	await user.add_roles(role)
+	addEmbed = discord.Embed(tittle="GiveRole", color=0xd0f0c0)
+	addEmbed.set_author(name="Succesfully Done")
+	await send(embed=addEmbed)
+
+@client.command(aliases=["r"])
+@commands.has_permissions(manage_roles=True)
+async def removerole(ctx, role: discord.Role, user: discord.Member):
+	await user.add_roles(role)
+	removeEmbed = discord.Embed(tittle="RemoveRole", color=0xd0f0c0)
+	removeEmbed.set_author(name="Succesfully Done")
+	await send(embed=removeEmbed)
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
