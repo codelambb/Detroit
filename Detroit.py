@@ -173,7 +173,7 @@ async def addrole(ctx, role: discord.Role, user: discord.Member):
 	await user.add_roles(role)
 	addEmbed = discord.Embed(tittle="GiveRole", color=0xd0f0c0)
 	addEmbed.set_author(name="Succesfully Done")
-	await send(embed=addEmbed)
+	await ctx.send(embed=addEmbed)
 
 @client.command(aliases=["r"])
 @commands.has_permissions(manage_roles=True)
@@ -181,6 +181,6 @@ async def removerole(ctx, role: discord.Role, user: discord.Member):
 	await user.add_roles(role)
 	removeEmbed = discord.Embed(tittle="RemoveRole", color=0xd0f0c0)
 	removeEmbed.set_author(name="Succesfully Done")
-	await send(embed=removeEmbed)
+	await ctx.send(embed=removeEmbed)
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
