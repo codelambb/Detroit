@@ -91,7 +91,7 @@ async def info(ctx):
 	
 		await ctx.send(embed=myEmbed)		
 
-@client.command()
+@client.command(aliases="h")
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
 	helpEmbed.set_author(name="Help Menu:")
@@ -145,7 +145,7 @@ async def micd(ctx):
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
-@client.command()
+@client.command(aliases=["i"])
 async def invite(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
 	invEmbed.add_field(name="Invite Link", value="https://rb.gy/9wa5wa")
