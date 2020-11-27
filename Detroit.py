@@ -86,8 +86,8 @@ async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
 	helpEmbed.set_author(name="Help Menu:")
 	helpEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
-	helpEmbed.add_field(name="```Moderation Command Menu, do ;mcmd to open that```")
-	helpEmbed.add_field(name="```Miscellaneous commands```")
+	helpEmbed.add_field(name="```Moderation Command Menu, do ;momd to open that```")
+	helpEmbed.add_field(name="```Miscellaneous Command Menu, do micd to open that;```")
 
 	await ctx.send(embed=helpEmbed)
 
