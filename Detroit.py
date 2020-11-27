@@ -87,8 +87,8 @@ async def help(ctx):
 
 @client.command()
 async def kick(ctx, user : discord.Member, *, reason=None):
-@commands.has_permissions(kick_members=True, administrator=True)
-await member.kick(reason=reason f'Kicked ' user)
+	@commands.has_permissions(kick_members=True, administrator=True)
+	await member.kick(reason=reason f'Kicked ' user)
 
 @client.command(name='ban', aliases=['banuser'])
 @commands.has_permissions(ban_members=True, administrator=True)
