@@ -86,13 +86,13 @@ async def help(ctx):
 	await ctx.send(embed=helpEmbed)
 
 @client.command()
-async def kick(ctx, user : discord.Member, *, reason=None):
+async def kick(ctx, member : discord.Member, *, reason=None):
 	@commands.has_permissions(kick_members=True, administrator=True)
 	await member.kick(reason=reason f'Kicked ' user)
 
 @client.command(name='ban', aliases=['banuser'])
 @commands.has_permissions(ban_members=True, administrator=True)
 async def ban_user_command(ctx, user : discord.Member, *, reason=None):
-	await member.ban(reason=reason f'Banned ' user)
+	await user.ban(reason=reason f'Banned ' user)
 
 client.run(os.environ['DISCORD_TOKEN'])
