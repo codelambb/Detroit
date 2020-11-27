@@ -46,6 +46,7 @@ async def _8ball(ctx, question):
 
 @client.command()
 async def info(ctx):
+	import random
 	n = random.randint(0,2)
 	if n == 0:
 		myEmbed = discord.Embed(tittle="Current Version                                           ", color=0x00FFFF)
