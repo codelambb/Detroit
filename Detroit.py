@@ -149,7 +149,6 @@ async def micd(ctx):
 async def invite(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
 	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)")
-	invEmbed.set_image(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	await ctx.send(embed=invEmbed)
 
 @client.command()
@@ -171,16 +170,12 @@ async def kill(ctx, user):
 @commands.has_permissions(manage_roles=True)
 async def addrole(ctx, role: discord.Role, user: discord.Member):
 	await user.add_roles(role)
-	addEmbed = discord.Embed(tittle="GiveRole", color=0xd0f0c0)
-	addEmbed.set_author(name="Succesfully Done")
-	await ctx.send(embed=addEmbed)
+	await ctx.send(f'Succesfully Done')
 
 @client.command(aliases=["r"])
 @commands.has_permissions(manage_roles=True)
 async def removerole(ctx, role: discord.Role, user: discord.Member):
-	await user.add_roles(role)
-	removeEmbed = discord.Embed(tittle="RemoveRole", color=0xd0f0c0)
-	removeEmbed.set_author(name="Succesfully Done")
-	await ctx.send(embed=removeEmbed)
+	await user.remove_roles(role)
+	await ctx.send(f'Succesfully Done')
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
