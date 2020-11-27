@@ -1,6 +1,10 @@
 import discord
+import random
 from discord.ext import commands
 import os
+
+from rps.model import RPS
+from rps.passer import RockPaperScissorParser
 
 client = commands.Bot(command_prefix = ';')
 
@@ -16,8 +20,11 @@ async def ping(ctx):
 	await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 @client.command()
+@commands.has_permissions(manage_messages=True)
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount))
+	return
+await ctx.send(f'You dont have permission to do that')
 
 @client.command(aliases=['8ball'])
 async def _8ball(ctx, question):
@@ -112,5 +119,36 @@ async def unban(ctx, *, member):
 			return
 
 	await ctx.send(member+" was not found")
+
+@client.command(aliases=['RPS'])
+async def rps(self, ctx, user_choice:RockPaperScissorParser):
+	rps_m = RPS()
+	bot_choice = random.choice(rps_m.get_choices())
+	user_choice = user_choice.choice
+
+	winner_check = {
+		(RPS.ROCK, RPS.PAPER): False,
+		(RPS.ROCK, RPS.SCISSOR): True,
+		(RPS.PAPER, RPS.ROCK): True,
+		(RPS.PAPER, RPS.SCISSOR): False,
+		(RPS.SCISSOR, RPS.ROCK): False,
+		(RPS.SCISSOR, RPS.PAPER): True,
+	}
+
+	won = None
+	if bot_choice == user_choice:
+		won = None
+	else:
+		won = winner_check[(user_choice, bot_choice)]
+
+	if won is None:
+		message = "It's a draw!"
+	elif won is True:
+		message = "You win: %s vs %s" % (user_choice, bot_choice)
+	elif won is False:
+		message = "You lose: %s vs %s" % (user_choice, bot_choice)
+
+
+	await ctx.send(message)
 
 client.run(os.environ['DISCORD_TOKEN'])
