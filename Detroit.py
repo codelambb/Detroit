@@ -24,7 +24,6 @@ async def ping(ctx):
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount))
 	return
-await ctx.send(f'You dont have permission to do that')
 
 @client.command(aliases=['8ball'])
 async def _8ball(ctx, question):
