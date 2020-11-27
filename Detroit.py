@@ -52,39 +52,42 @@ async def info(ctx):
 	import random
 	n = random.randint(0,2)
 	if n == 0:
-		myEmbed = discord.Embed(tittle="Current Version                                           ", color=0x00FFFF)
-		myEmbed.add_field(name="Version Code:", value="v1.0.0                                     ", inline=False)
-		myEmbed.add_field(name="Date Released:", value="November 25th, 2020                       ", inline=False)
-		myEmbed.add_field(name="Author:", value="DarkLord#2292                                    ", inline=False)
-		myEmbed.set_author(name="Detroid                                                          ")
+		myEmbed = discord.Embed(tittle="Information", color=0x00FFFF)
+		myEmbed.add_field(name="Version Code:", value="```v1.0.0```", inline=False)
+		myEmbed.add_field(name="Date Released:", value="```November 25th, 2020```", inline=False)
+		myEmbed.add_field(name="Author:", value="```DarkLord#2292```", inline=False)
+		myEmbed.set_author(name="Detroid")
+		myEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	
 		await ctx.send(embed=myEmbed)
 
 	if n == 1:
-		myEmbed = discord.Embed(tittle="Current Version                                           ", color=0xFFB6C1)
-		myEmbed.add_field(name="Version Code:", value="v1.0.0                                     ", inline=False)
-		myEmbed.add_field(name="Date Released:", value="November 25th, 2020                       ", inline=False)
-		myEmbed.add_field(name="Author:", value="DarkLord#2292                                    ", inline=False)
-		myEmbed.set_author(name="Detroid                                                          ")
+		myEmbed = discord.Embed(tittle="Information", color=0xFFB6C1)
+		myEmbed.add_field(name="Version Code:", value="```v1.0.0```", inline=False)
+		myEmbed.add_field(name="Date Released:", value="```November 25th, 2020```", inline=False)
+		myEmbed.add_field(name="Author:", value="```DarkLord#2292```", inline=False)
+		myEmbed.set_author(name="Detroid")
+		myEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	
 		await ctx.send(embed=myEmbed)
 
 	if n == 2:
-		myEmbed = discord.Embed(tittle="Current Version                                           ", color=0x00FF00)
-		myEmbed.add_field(name="Version Code:", value="v1.0.0                                     ", inline=False)
-		myEmbed.add_field(name="Date Released:", value="November 25th, 2020                       ", inline=False)
-		myEmbed.add_field(name="Author:", value="DarkLord#2292                                    ", inline=False)
-		myEmbed.set_author(name="Detroid                                                          ")
+		myEmbed = discord.Embed(tittle="Information", color=0x00FF00)
+		myEmbed.add_field(name="Version Code:", value="```v1.0.0```", inline=False)
+		myEmbed.add_field(name="Date Released:", value="```November 25th, 2020```", inline=False)
+		myEmbed.add_field(name="Author:", value="```DarkLord#2292```", inline=False)
+		myEmbed.set_author(name="Detroid")
+		myEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
 	
 		await ctx.send(embed=myEmbed)		
 
 @client.command()
 async def help(ctx):
-	helpEmbed = discord.Embed(tittle="Help Menu                                                   ", color=0x000000)
-	helpEmbed.set_author(name="Help Menu                                                          ")
+	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
+	helpEmbed.set_author(name="Help Menu:")
 	helpEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
-	helpEmbed.add_field(name="Moderation Command                                                  ", value=";clear", inline=False)
-	helpEmbed.add_field(name="Miscellaneous commands", value=";ping, ;8ball, ;info                ")
+	helpEmbed.add_field(name="```Moderation Command Menu, do ;mcmd to open that```"
+	helpEmbed.add_field(name="```Miscellaneous commands```")
 
 	await ctx.send(embed=helpEmbed)
 
@@ -95,6 +98,10 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 	await member.kick(reason=reason)
 
 @client.command(aliases=['b'])
+if commands.has_permissions(ban_members=False, administrator=False) = False:
+	async def error(ctx):
+		errorEmbed = discord.Embed(tittle="ERROR", color=0xFF0000)
+		errorEmbed.add_field(name="ERROR", value="You cannot use that command cause you have the permissions to use that")
 @commands.has_permissions(ban_members=True, administrator=True)
 async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
 	await ctx.send(f'Banned {member} from the server.')
