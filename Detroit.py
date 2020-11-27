@@ -2,14 +2,14 @@ import discord
 from discord.ext import commands
 import os
 
-client = commands.Bot(command_prefix = '.')
+client = commands.Bot(command_prefix = ';')
 
 client.remove_command("help")
 
 @client.event
 async def on_ready():
 	print('Bot is ready.')
-	await client.change_presence(status=discord.Status.online, activity=discord.Game('Listening to .help'))
+	await client.change_presence(status=discord.Status.online, activity=discord.Game('Listening to ;help'))
 
 @client.command()
 async def ping(ctx):
@@ -85,17 +85,17 @@ async def help(ctx):
 
 	await ctx.send(embed=helpEmbed)
 
-@client.command()
+@client.command(aliases=['k'])
 @commands.has_permissions(kick_members=True, administrator=True)
-async def kick(ctx, member: discord.Member, *, reason=None):
-	await member.kick(reason=reason)
+async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 	await ctx.send(f'Kicked {member} from the server.')
+	await member.kick(reason=reason)
 
-@client.command()
+@client.command(aliases=['b'])
 @commands.has_permissions(ban_members=True, administrator=True)
-async def ban(ctx, mem: discord.Member, *, reason=None):
+async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
+	await ctx.send(f'Banned {member} from the server.')
 	await user.ban(reason=reason)
-	await ctx.send(f'Banned {mem} from the server.')
 
 @client.command(aliases=['ub'])
 @commands.has_permissions(ban_members=True, administrator=True)
@@ -113,5 +113,5 @@ async def unban(ctx, *, member):
 			return
 
 	await ctx.send(member+" was not found")
-	
+
 client.run(os.environ['DISCORD_TOKEN'])
