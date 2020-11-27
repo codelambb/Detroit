@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands, tasks
 import os
-from random import choices
+from random import choice
 
 intents = discord.Intents.all()
 prefixes = [".","$","d!",";"]
