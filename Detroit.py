@@ -86,7 +86,7 @@ async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
 	helpEmbed.set_author(name="Help Menu:")
 	helpEmbed.set_thumbnail(url="https://i.pinimg.com/originals/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg")
-	helpEmbed.add_field(name="```Moderation Command Menu, do ;mcmd to open that```"
+	helpEmbed.add_field(name="```Moderation Command Menu, do ;mcmd to open that```")
 	helpEmbed.add_field(name="```Miscellaneous commands```")
 
 	await ctx.send(embed=helpEmbed)
@@ -98,10 +98,6 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 	await member.kick(reason=reason)
 
 @client.command(aliases=['b'])
-if commands.has_permissions(ban_members=False, administrator=False) = False:
-	async def error(ctx):
-		errorEmbed = discord.Embed(tittle="ERROR", color=0xFF0000)
-		errorEmbed.add_field(name="ERROR", value="You cannot use that command cause you have the permissions to use that")
 @commands.has_permissions(ban_members=True, administrator=True)
 async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
 	await ctx.send(f'Banned {member} from the server.')
