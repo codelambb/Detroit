@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import os
 from random import choice
+import aiohttp
 
 intents = discord.Intents.all()
 prefixes = [".","$","d!",";"]
@@ -21,6 +22,17 @@ async def on_ready():
 @tasks.loop(seconds=20)
 async def change_status():
 	await client.change_presence(activity=discord.Game(choice(status)))
+
+#meme command 
+@client.command()
+async def meme(ctx):
+    async with ctx.channel.typing():
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://www.reddit.com/r/dankmemes/new.json?sort=hot,") as r:
+                res = await r.json()
+                embed = discord.Embed(title="Memes")
+                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+                await ctx.send(embed=embed)
 
 @client.command()
 async def ping(ctx):
