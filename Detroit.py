@@ -4,6 +4,7 @@ import os
 from random import choice
 import aiohttp
 import random
+import time
 
 intents = discord.Intents.all()
 prefixes = [".","$","d!",";"]
@@ -43,6 +44,7 @@ async def ping(ctx):
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount))
+
 	return
 
 @client.command(aliases=['8ball'])
@@ -199,7 +201,7 @@ async def avatar(ctx, *, member: discord.Member=None):
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def mute(ctx, member: discord.Member, *, reason=None):
 	guild = ctx.guild
-	mutedRole = await guild.create_role(name="Muted")
+	mutedRole = await guild(name="Muted")
 
 	if not mutedRole:
 		mutedRole = await guild.create_role(name="Muted")
@@ -210,5 +212,21 @@ async def mute(ctx, member: discord.Member, *, reason=None):
 	await member.add_roles(mutedRole, reason=reason)
 	await ctx.send(f'Muted {member.mention} for reason {reason}')
 	await member.send(f'You were muted in the server {guild.name} for {reason}')
+
+@client.command()
+@commands.has_permissions(manage_roles=True, administrator=True)
+async def unmute(ctx, member: discord.Member, *, reason=None):
+	guild = ctx.guild
+	mutedRole = await guild(name="Muted")
+
+	if not mutedRole:
+		mutedRole = await guild.create_role(name="Muted")
+
+		for channel in guild.channels:
+			await channel.set_permissions(mutedRole, speak=False, send_message=False, read_message_history=True, read_messages=False)
+
+	await member.remove_roles(mutedRole, reason=reason, time=None)
+	await ctx.send(f'Unmuted {member.mention}')
+	await member.send(f'You have been unmuted from the server {guild.name}')
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
