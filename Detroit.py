@@ -177,8 +177,8 @@ async def removerole(ctx, role: discord.Role, user: discord.Member):
 
 @client.command()
 async def avatar(ctx, member: discord.Member):
-	show_avatar = discord.Embed(color= discord.Color.dark_blue())
-	show_avatar.set_thumbnail(url='{}'.format(member.avatar.url))
+	show_avatar = discord.Embed(color=0xff6633)
+	show_avatar.set_image(url='{}'.format(member.avatar.url))
 	await ctx.send(embed=show_avatar)
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
