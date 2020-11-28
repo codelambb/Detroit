@@ -197,8 +197,18 @@ async def avatar(ctx, *, member: discord.Member=None):
 
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
-async def mute(ctx, member: discord.Member, *, reason):
-	await member.add_roles('Muted')
-	await ctx.send(f'Succesfully muted {member}')
+async def mute(ctx, member: discord.Member, *, reason=None):
+	guild = ctx.guild
+	mutedRole = await guild.create_role(name="Muted")
+
+	if not mutedRole:
+		mutedRole = await guild.create_role(name="Muted")
+
+		for channel in guild.channels:
+			await channel.set_permissions(mutedRole, speak=False, send_message=False, read_message_history=True, read_messages=False)
+
+	await member.add_roles(mutedRole, reason=reason)
+	await ctx.send(f'Muted {member.mention} for reason {reason}')
+	await member.send(f'You were muted in the server {guild.name} for {reason}')
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
