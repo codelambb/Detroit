@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import os
 from random import choice
 import aiohttp
+import random
 
 intents = discord.Intents.all()
 prefixes = [".","$","d!",";"]
