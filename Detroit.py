@@ -201,7 +201,7 @@ async def avatar(ctx, *, member: discord.Member=None):
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def mute(ctx, member: discord.Member, *, reason=None):
 	guild = ctx.guild
-	mutedRole = discord.utils.get(guild.roles(name="Muted"))
+	mutedRole = discord.utils.get(guild.roles, name="Muted")
 
 	if not mutedRole:
 		mutedRole = await guild.create_role(name="Muted")
@@ -215,17 +215,9 @@ async def mute(ctx, member: discord.Member, *, reason=None):
 
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
-async def unmute(ctx, member: discord.Member, *, reason=None):
-	guild = ctx.guild
-	mutedRole = await guild(name="Muted")
+async def unmute(ctx, member: discord.Member):
 
-	if not mutedRole:
-		mutedRole = await guild.create_role(name="Muted")
-
-		for channel in guild.channels:
-			await channel.set_permissions(mutedRole, speak=False, send_message=False, read_message_history=True, read_messages=False)
-
-	await member.remove_roles(mutedRole, reason=reason, time=None)
+	await member.remove_roles(mutedRole)
 	await ctx.send(f'Unmuted {member.mention}')
 	await member.send(f'You have been unmuted from the server {guild.name}')
 
