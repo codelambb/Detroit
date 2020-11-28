@@ -27,61 +27,13 @@ async def change_status():
 #meme command 
 @client.command()
 async def meme(ctx):
-	x = random.randint(0,5)
-	if x == 0:
-	    async with ctx.channel.typing():
-	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/r/dankmemes/new.json?sort=hot,") as r:
-	                res = await r.json()
-	                embed = discord.Embed(title="Here is a meme", color=0xea6847)
-	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-	                embed.set_footer(text="Credits to RefinedDev")
-	                await ctx.send(embed=embed)
-	if x == 1:
-	    async with ctx.channel.typing():
-	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
-	                res = await r.json()
-	                embed = discord.Embed(title="Here is a meme", color=0x11ffa5)
-	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-	                embed.set_footer(text="Credits to RefinedDev")
-	                await ctx.send(embed=embed)		
-	if x == 2:
-	    async with ctx.channel.typing():
-	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
-	                res = await r.json()
-	                embed = discord.Embed(title="Here is a meme", color=0x18d1ec)
-	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-	                embed.set_footer(text="Credits to RefinedDev")
-	                await ctx.send(embed=embed)
-	if x == 3:
-	    async with ctx.channel.typing():
-	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
-	                res = await r.json()
-	                embed = discord.Embed(title="Here is a meme", color=0xff00db)
-	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-	                embed.set_footer(text="Credits to RefinedDev")
-	                await ctx.send(embed=embed)
-	if x == 4:
-	    async with ctx.channel.typing():
-	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
-	                res = await r.json()
-	                embed = discord.Embed(title="Here is a meme", color=0xec1010)
-	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-	                embed.set_footer(text="Credits to RefinedDev")
-	                await ctx.send(embed=embed)	
-	if x == 5:
-	    async with ctx.channel.typing():
-	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
-	                res = await r.json()
-	                embed = discord.Embed(title="Here is a meme", color=0xf4eb12)
-	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-	                embed.set_footer(text="Credits to RefinedDev")
-	                await ctx.send(embed=embed)	
+    async with ctx.channel.typing():
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://www.reddit.com/r/dankmemes/new.json?sort=hot,") as r:
+                res = await r.json()
+                embed = discord.Embed(title="Here is a meme", color=0x00FFFF)
+                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+                await ctx.send(embed=embed)
 
 @client.command()
 async def ping(ctx):
