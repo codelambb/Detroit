@@ -201,7 +201,7 @@ async def avatar(ctx, *, member: discord.Member=None):
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def mute(ctx, member: discord.Member, *, reason=None):
 	guild = ctx.guild
-	mutedRole = await guild(name="Muted")
+	mutedRole = discord.utils.get(guild.roles(name="Muted"))
 
 	if not mutedRole:
 		mutedRole = await guild.create_role(name="Muted")
