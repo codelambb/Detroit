@@ -177,13 +177,13 @@ async def kill(ctx, user):
 		await ctx.send(f'{user} is sucked into Minecraft. Dank Memer, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
 
 @client.command(aliases=["a"])
-@commands.has_permissions(manage_roles=True)
+@commands.has_permissions(manage_roles=True, administrator=True)
 async def addrole(ctx, role: discord.Role, user: discord.Member):
 	await user.add_roles(role)
 	await ctx.send(f'Succesfully Done')
 
 @client.command(aliases=["r"])
-@commands.has_permissions(manage_roles=True)
+@commands.has_permissions(manage_roles=True, administrator=True)
 async def removerole(ctx, role: discord.Role, user: discord.Member):
 	await user.remove_roles(role)
 	await ctx.send(f'Succesfully Done')
@@ -194,5 +194,11 @@ async def avatar(ctx, *, member: discord.Member=None):
         member = ctx.message.author
     userAvatar = member.avatar_url
     await ctx.send(userAvatar)
+
+@client.command()
+@commands.has_permissions(manage_roles=True, administrator=True)
+async def mute(ctx, member: discord.Member, *, reason):
+	await member.add_roles('Muted')
+	await ctx.send(f'Succesfully muted {member}')
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
