@@ -138,7 +138,7 @@ async def mocd(ctx):
 @client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
-	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```")
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```\n```.avatar (user): Gives the specified user's profile picture or avatar\n")
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
@@ -174,5 +174,11 @@ async def addrole(ctx, role: discord.Role, user: discord.Member):
 async def removerole(ctx, role: discord.Role, user: discord.Member):
 	await user.remove_roles(role)
 	await ctx.send(f'Succesfully Done')
+
+@client.command()
+async def avatar(ctx, member: discord.Member):
+	show_avatar = discord.Embed(color= discord.Color.dark_blue())
+	show_avatar.set_thumbnail(url='{}'.format(member.avatar.url))
+	await ctx.send(embed=show_avatar)
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
