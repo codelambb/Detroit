@@ -146,7 +146,7 @@ async def unban(ctx, *, member):
 @client.command(aliases=['mo'])
 async def mocd(ctx):
 	modEmbed = discord.Embed(tittle="Moderation Command Menu", color=0xFFFF00)
-	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n```addrole (role) (user): Adds the specified role to the specified user```\n```removerole (role) (user): Removes the specified role from the specified user```\n")
+	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n```addrole (role) (user): Adds the specified role to the specified user```\n```removerole (role) (user): Removes the specified role from the specified user```\n```.mute (user): Mutes the specified user```\n```.unmute (user): Unmutes the specified user```\n")
 	modEmbed.set_footer(text="More moderator commands will be added soon")
 	await ctx.send(embed=modEmbed)
 
@@ -216,6 +216,7 @@ async def mute(ctx, member: discord.Member, *, reason=None):
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def unmute(ctx, member: discord.Member):
+	mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 
 	await member.remove_roles(mutedRole)
 	await ctx.send(f'Unmuted {member.mention}')
