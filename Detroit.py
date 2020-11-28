@@ -27,7 +27,7 @@ async def change_status():
 #meme command 
 @client.command()
 async def meme(ctx):
-	x = random.randomint(0,5)
+	x = random.randint(0,5)
 	if x == 0:
 	    async with ctx.channel.typing():
 	        async with aiohttp.ClientSession() as cs:
