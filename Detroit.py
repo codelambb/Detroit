@@ -31,7 +31,7 @@ async def meme(ctx):
 	if x == 0:
 	    async with ctx.channel.typing():
 	        async with aiohttp.ClientSession() as cs:
-	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot") as r:
+	            async with cs.get("https://www.reddit.com/r/memes/new.json?sort=hot,") as r:
 	                res = await r.json()
 	                embed = discord.Embed(title="Here is a meme", color=0xea6847)
 	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
