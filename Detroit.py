@@ -27,13 +27,61 @@ async def change_status():
 #meme command 
 @client.command()
 async def meme(ctx):
-    async with ctx.channel.typing():
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get("https://www.reddit.com/r/dankmemes/new.json?sort=hot,") as r:
-                res = await r.json()
-                embed = discord.Embed(title="Memes")
-                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
-                await ctx.send(embed=embed)
+	x = random.randomint(0:5)
+	if x == 0:
+	    async with ctx.channel.typing():
+	        async with aiohttp.ClientSession() as cs:
+	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
+	                res = await r.json()
+	                embed = discord.Embed(title="Here is a meme", color=0xea6847)
+	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+	                embed.set_footer(text="Credits to RefinedDev")
+	                await ctx.send(embed=embed)
+	if x == 1:
+	    async with ctx.channel.typing():
+	        async with aiohttp.ClientSession() as cs:
+	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
+	                res = await r.json()
+	                embed = discord.Embed(title="Here is a meme", color=0x11ffa5)
+	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+	                embed.set_footer(text="Credits to RefinedDev")
+	                await ctx.send(embed=embed)		
+	if x == 2:
+	    async with ctx.channel.typing():
+	        async with aiohttp.ClientSession() as cs:
+	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
+	                res = await r.json()
+	                embed = discord.Embed(title="Here is a meme", color=0x18d1ec)
+	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+	                embed.set_footer(text="Credits to RefinedDev")
+	                await ctx.send(embed=embed)
+	if x == 3:
+	    async with ctx.channel.typing():
+	        async with aiohttp.ClientSession() as cs:
+	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
+	                res = await r.json()
+	                embed = discord.Embed(title="Here is a meme", color=0xff00db)
+	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+	                embed.set_footer(text="Credits to RefinedDev")
+	                await ctx.send(embed=embed)
+	if x == 4:
+	    async with ctx.channel.typing():
+	        async with aiohttp.ClientSession() as cs:
+	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
+	                res = await r.json()
+	                embed = discord.Embed(title="Here is a meme", color=0xec1010)
+	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+	                embed.set_footer(text="Credits to RefinedDev")
+	                await ctx.send(embed=embed)	
+	if x == 5:
+	    async with ctx.channel.typing():
+	        async with aiohttp.ClientSession() as cs:
+	            async with cs.get("https://www.reddit.com/search/?q=memes&sort=hot,") as r:
+	                res = await r.json()
+	                embed = discord.Embed(title="Here is a meme", color=0xf4eb12)
+	                embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
+	                embed.set_footer(text="Credits to RefinedDev")
+	                await ctx.send(embed=embed)	
 
 @client.command()
 async def ping(ctx):
@@ -151,7 +199,7 @@ async def mocd(ctx):
 @client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
-	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```\n```.avatar (user): Gives the specified user's profile picture or avatar```\n")
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```\n```.avatar (user): Gives the specified user's profile picture or avatar```\n```.meme: Sends a hot meme from reddit")
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
