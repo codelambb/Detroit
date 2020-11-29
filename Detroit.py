@@ -5,6 +5,9 @@ from random import choice
 import aiohttp
 import random
 import time
+import datetime
+import asyncio
+import random
 
 intents = discord.Intents.all()
 prefixes = ["$","d!","."]
@@ -237,6 +240,30 @@ async def unmute(ctx, member: discord.Member):
 	await member.remove_roles(mutedRole)
 	await ctx.send(f'Unmuted {member.mention}')
 	await member.send(f'You have been unmuted from the server {guild.name}')
+
+@client.command()
+async def gstart(ctx, mins : int, *, prize: str):
+	embed = discord.Embed(tittle= "Giveaway!", description=f'{prize}', color= ctx.author.color)
+
+	end = datetime.datetime.utcnow() + datetime.timedata(seconds=mins*60)
+
+	embed.add_field(name="Ends at:", value=f"{end} UTC")
+	embed.set_footer(text = "Ends {mins} minutes from now")
+
+	my_msg = await ctx.send(embed=embed)
+
+	await my_msg.add_reaction("🎉")
+
+	await asyncio.sleep(mins)
+
+	new_msg = await ctx.channel.fetch_message(my_msg.id)
+
+	users = await new_msg.reactions[0].users().flatten()
+	users.pop(users.index(client.user))
+
+	winner = random.choice(users)
+
+	await ctx.send(f"Congratulations! {winner.mention} won {prize}!")
 
 #all the errors
 
