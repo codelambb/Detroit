@@ -246,7 +246,7 @@ async def unmute(ctx, member: discord.Member):
 async def gstart(ctx, mins : int, *, prize: str):
 	embed = discord.Embed(tittle= "Giveaway!", description=f'{prize}', color= ctx.author.color)
 
-	end = datetime.datetime.utcnow() + datetime.timedata(seconds=mins*60)
+	end = datetime.datetime.utcnow() + datetime.timedelta(seconds=mins*60)
 
 	embed.add_field(name="Ends at:", value=f"{end} UTC")
 	embed.set_footer(text = "Ends {mins} minutes from now")
@@ -267,6 +267,7 @@ async def gstart(ctx, mins : int, *, prize: str):
 	await ctx.send(f"Congratulations! {winner.mention} won {prize}!")
 
 #all the errors
+
 
 #clear error
 @clear.error
