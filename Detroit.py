@@ -44,8 +44,8 @@ async def ping(ctx):
 @client.command(aliases=["purge", "cls"])
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, ammount):
-	await ctx.channel.purge(limit=int(ammount))
-	await ctx.send("I have deleted {ammount} messages.", delete_after=5)
+	await ctx.channel.purge(limit=int(ammount + 1))
+	await ctx.send(f'I have deleted {ammount} messages.', delete_after=5)
 	return
 
 #8ball command
@@ -246,12 +246,22 @@ async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		errorEmbed = discord.Embed(color=0xcc0001)
 		errorEmbed.add_field(name="ERROR", value="The command you have given is an invalid command\n")
-		await ctx.send(embed=errorEmbed)
+		await ctx.send(embed=errorEmbed, delete_after=5)
 
 #clear error
 @clear.error
 async def clear_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('Please specify an ammount of messages to delete.')
+		await ctx.send('Please specify an ammount of messages to delete.', delete_after=5)
+
+@_8ball.error
+async def _8ball_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('8ball didnt gave an answer because you didnt even asked a question idiot.')
+
+@ban.error
+async def ban_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.')
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
