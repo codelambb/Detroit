@@ -113,7 +113,7 @@ async def info(ctx):
 @client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
-	helpEmbed.set_author(name="Help Menu:\nPrefixes = '.'  ';'  'd!'  '$'")
+	helpEmbed.set_author(name="Help Menu:\nPrefixes = '.'  'd!'  '$'")
 	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .mocd to open that```", inline=True)
 	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .micd to open that```", inline=True)
 
