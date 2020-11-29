@@ -7,12 +7,12 @@ import random
 import time
 
 intents = discord.Intents.all()
-prefixes = ["$","d!"]
+prefixes = ["$","d!","."]
 client = commands.Bot(command_prefix=list(prefixes),intents = intents)
 
 client = commands.Bot(command_prefix = prefixes)
 
-status = ['Listening to .help', 'Listening to ;help', 'Listening to $help', 'Listening to d!help']
+status = ['Listening to .help', 'Listening to $help', 'Listening to d!help']
 
 client.remove_command("help")
 
@@ -276,6 +276,6 @@ async def kick_error(ctx, error):
 @unban.error
 async def unban_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.', delete_after=5)
+		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command or that user is not banned at this server', delete_after=5)
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
