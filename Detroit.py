@@ -324,7 +324,7 @@ async def giveaway(ctx):
 
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True, manage_channels=True)
-async def reroll(ctx, channel : discord.Channel, id_ : int):
+async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 	try:
 		new_msg = await channel.fetch_message(id_)
 	except:
