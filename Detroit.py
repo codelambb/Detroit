@@ -45,6 +45,7 @@ async def ping(ctx):
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount))
+	await ctx.send("I have deleted {ammount} messages.", delete_after=5)
 	return
 
 #8ball command
