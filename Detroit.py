@@ -259,7 +259,7 @@ def convert(time):
 
 #giveaway command
 @client.command()
-@commands.has_permissions(manage_roles=True, administrator=True, manage_channels=True)
+@commands.has_permissions(administrator=True)
 async def giveaway(ctx):
 	await ctx.send("Lets start with giveaway! Answer these questions within 15 seconds")
 
