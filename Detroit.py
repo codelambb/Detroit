@@ -259,7 +259,6 @@ def convert(time):
 
 #giveaway command
 @client.command()
-@commands.has_permissions(administrator=True)
 async def giveaway(ctx):
 	await ctx.send("Lets start with giveaway! Answer these questions within 15 seconds")
 
@@ -337,9 +336,6 @@ async def reroll(ctx, channel : discord.Channel, id_ : int):
 	winner = random.choice(users)
 
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
-
-
-	
 
 
 #all the errors
