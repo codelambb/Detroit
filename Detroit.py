@@ -117,6 +117,7 @@ async def info(ctx):
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
 	helpEmbed.set_author(name="Help Menu:\nPrefixes = '.'  'd!'  '$'")
+	helpEmbed.add_field(name="Support Us!", value="```Type .supportme```", inline=False)
 	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .mocd to open that```", inline=True)
 	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .micd to open that```", inline=True)
 
@@ -157,7 +158,7 @@ async def unban(ctx, *, member):
 @client.command(aliases=['mo'])
 async def mocd(ctx):
 	modEmbed = discord.Embed(tittle="Moderation Command Menu", color=0xFFFF00)
-	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n```addrole (role) (user): Adds the specified role to the specified user```\n```removerole (role) (user): Removes the specified role from the specified user```\n```.mute (user): Mutes the specified user```\n```.unmute (user): Unmutes the specified user```\n```.giveaway: Starts a giveaway!```\n")
+	modEmbed.add_field(name="Moderation Command Menu", value="```.kick (user) (reason): Kicks a member from the server```\n```.ban (user) (reason): Bans a member from the server```\n```.unban (user): Unbans a banned user from the server```\n```.clear (ammount): Clears the specified amount of messages from that channel```\n```.addrole (role) (user): Adds the specified role to the specified user```\n```.removerole (role) (user): Removes the specified role from the specified user```\n```.mute (user): Mutes the specified user```\n```.unmute (user): Unmutes the specified user```\n```.giveaway: Starts a giveaway!```\n")
 	modEmbed.set_footer(text="More moderator commands will be added soon")
 	await ctx.send(embed=modEmbed)
 
@@ -165,15 +166,17 @@ async def mocd(ctx):
 @client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
-	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.invite: Gives the bot's invite link```\n```.avatar (user): Gives the specified user's profile picture or avatar```\n```.meme: Sends a hot meme from reddit```\n")
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.info: Tells information about the bot```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.avatar (user): Gives the specified user's profile picture or avatar```\n```.meme: Sends a hot meme from reddit```\n")
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
 #invite command
-@client.command(aliases=["in"])
-async def invite(ctx):
+@client.command(aliases=["sup"])
+async def supportme(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
-	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)")
+	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)", inline=False)
+	invEmbed.add_field(name="Server Link", value="[Click this to join the server](https://discord.gg/KJ6Twwkafw)", inline=False)
+	invEmbed.add_field(name="Upvote Link", value="[Click this to upvote us!](https://top.gg/bot/781379286924918785)", inline=False)
 	await ctx.send(embed=invEmbed)
 
 #kill command
@@ -340,6 +343,13 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
 
 #all the errors
+
+#main error
+@client.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+		embed = discord.Embed(tittle="error", color=0xff0000)
+		embed.add_field(name="ERROR", value="Invalid command used.", delete_after=5)
 
 #clear error
 @clear.error
