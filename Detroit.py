@@ -241,6 +241,7 @@ async def unmute(ctx, member: discord.Member):
 	await ctx.send(f'Unmuted {member.mention}')
 	await member.send(f'You have been unmuted from the server {guild.name}')
 
+#giveaway command
 @client.command()
 async def gstart(ctx, mins : int, *, prize: str):
 	embed = discord.Embed(tittle= "Giveaway!", description=f'{prize}', color= ctx.author.color)
@@ -266,14 +267,6 @@ async def gstart(ctx, mins : int, *, prize: str):
 	await ctx.send(f"Congratulations! {winner.mention} won {prize}!")
 
 #all the errors
-
-#main error
-@client.event
-async def on_command_error(ctx, error):
-	if isinstance(error, commands.CommandNotFound):
-		errorEmbed = discord.Embed(color=0xcc0001)
-		errorEmbed.add_field(name="ERROR", value="The command you have given is an invalid command\n")
-		await ctx.send(embed=errorEmbed, delete_after=5)
 
 #clear error
 @clear.error
