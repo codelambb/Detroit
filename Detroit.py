@@ -35,18 +35,19 @@ async def meme(ctx):
                 embed = discord.Embed(title="Here is a meme", color=0x00FFFF)
                 embed.set_image(url=res['data']['children'] [random.randint(0, 25)]['data']['url'])
                 await ctx.send(embed=embed)
-
+#ping command
 @client.command()
 async def ping(ctx):
 	await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
+#clear command
 @client.command(aliases=["purge", "cls"])
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount))
-
 	return
 
+#8ball command
 @client.command(aliases=['8ball'])
 async def _8ball(ctx, question):
 	import random
@@ -72,6 +73,7 @@ async def _8ball(ctx, question):
 				"Very doubtful."]
 	await ctx.send(f'{random.choice(responses)}')
 
+#info command
 @client.command(aliases=['i'])
 async def info(ctx):
 	import random
@@ -106,6 +108,7 @@ async def info(ctx):
 		myEmbed.set_footer(text="Special thanks to RefinedDev#8759")	
 		await ctx.send(embed=myEmbed)	
 
+#help command
 @client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
@@ -115,18 +118,21 @@ async def help(ctx):
 
 	await ctx.send(embed=helpEmbed)
 
+#kick command
 @client.command(aliases=['k'])
 @commands.has_permissions(kick_members=True, administrator=True)
 async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 	await ctx.send(f'Kicked {member} from the server.')
 	await member.kick(reason=reason)
 
+#ban command
 @client.command(aliases=['b'])
 @commands.has_permissions(ban_members=True, administrator=True)
 async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
 	await ctx.send(f'Banned {member} from the server.')
 	await member.ban(reason=reason)
 
+#unban command
 @client.command(aliases=['ub'])
 @commands.has_permissions(ban_members=True, administrator=True)
 async def unban(ctx, *, member):
@@ -143,6 +149,7 @@ async def unban(ctx, *, member):
 
 	await ctx.send(member+" was not found")
 
+#Moderation Menu Command
 @client.command(aliases=['mo'])
 async def mocd(ctx):
 	modEmbed = discord.Embed(tittle="Moderation Command Menu", color=0xFFFF00)
@@ -150,6 +157,7 @@ async def mocd(ctx):
 	modEmbed.set_footer(text="More moderator commands will be added soon")
 	await ctx.send(embed=modEmbed)
 
+#Miscellaneous Command Menu
 @client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
@@ -157,12 +165,14 @@ async def micd(ctx):
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
+#invite command
 @client.command(aliases=["in"])
 async def invite(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
 	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)")
 	await ctx.send(embed=invEmbed)
 
+#kill command
 @client.command()
 async def kill(ctx, user):
 	import random
@@ -178,18 +188,21 @@ async def kill(ctx, user):
 	if k == 5:
 		await ctx.send(f'{user} is sucked into Minecraft. Dank Memer, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
 
+#addrole command
 @client.command(aliases=["a"])
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def addrole(ctx, role: discord.Role, user: discord.Member):
 	await user.add_roles(role)
 	await ctx.send(f'Succesfully Done')
 
+#removerole command
 @client.command(aliases=["r"])
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def removerole(ctx, role: discord.Role, user: discord.Member):
 	await user.remove_roles(role)
 	await ctx.send(f'Succesfully Done')
-    
+
+#avatar command    
 @client.command()
 async def avatar(ctx, *, member: discord.Member=None):
     if not member:
@@ -197,6 +210,7 @@ async def avatar(ctx, *, member: discord.Member=None):
     userAvatar = member.avatar_url
     await ctx.send(userAvatar)
 
+#mute command
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def mute(ctx, member: discord.Member, *, reason=None):
@@ -213,6 +227,7 @@ async def mute(ctx, member: discord.Member, *, reason=None):
 	await ctx.send(f'Muted {member.mention} for reason {reason}')
 	await member.send(f'You were muted in the server {guild.name} for {reason}')
 
+#unmute command
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def unmute(ctx, member: discord.Member):
@@ -221,5 +236,21 @@ async def unmute(ctx, member: discord.Member):
 	await member.remove_roles(mutedRole)
 	await ctx.send(f'Unmuted {member.mention}')
 	await member.send(f'You have been unmuted from the server {guild.name}')
+
+#all the errors
+
+#main error
+@client.event
+async def on_command_error(ctx, error):
+	if isinstance(error, commands.CommandNotFound):
+		errorEmbed = discord.Embed(color=0xcc0001)
+		errorEmbed.add_field(name="ERROR", value="The command you have given is an invalid command\n")
+		await ctx.send(embed=errorEmbed)
+
+#clear error
+@clear.error
+async def clear_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Please specify an ammount of messages to delete.')
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
