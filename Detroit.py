@@ -7,7 +7,7 @@ import random
 import time
 
 intents = discord.Intents.all()
-prefixes = [".","$","d!",";"]
+prefixes = ["$","d!"]
 client = commands.Bot(command_prefix=list(prefixes),intents = intents)
 
 client = commands.Bot(command_prefix = prefixes)
@@ -254,14 +254,28 @@ async def clear_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		await ctx.send('Please specify an ammount of messages to delete.', delete_after=5)
 
+#8ball error
 @_8ball.error
 async def _8ball_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('8ball didnt gave an answer because you didnt even asked a question idiot.')
+		await ctx.send('8ball didnt gave an answer because you didnt even asked a question idiot.', delete_after=5)
 
+#ban error
 @ban.error
 async def ban_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.')
+		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.', delete_after=5)
+
+#kick error
+@kick.error
+async def kick_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.', delete_after=5)
+
+#unban error
+@unban.error
+async def unban_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.', delete_after=5)
 
 client.run(client.run(os.environ['DISCORD_TOKEN']))
