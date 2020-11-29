@@ -276,7 +276,7 @@ async def giveaway(ctx):
 		await ctx.send(i)
 
 		try:
-			msg = await client.wait_for('message', timeout=15.0, check=check)
+			msg = await client.wait_for('message', timeout=20.0, check=check)
 		except asyncio.TimeoutError:
 			await ctx.send('You didnt\'t answer in time, please be quicker next time!')
 			return
@@ -296,11 +296,11 @@ async def giveaway(ctx):
 		await ctx.send(f"You didn't answer the time with proper unit. Use (s|m|h|d)")
 		return
 	elif time == -2:
-		await ctx.send(f"The time must be an integer. Please eneter an integer next time.")
+		await ctx.send(f"The time must be an integer. Please enter an integer next time.")
 		return
 	prize = answers[2]
 
-	await ctx.send(f"The Giveaway will be in {chann.mention} and it will last {time} seconds!")
+	await ctx.send(f"The Giveaway will be in {channel.mention} and it will last {answers[1]} seconds!")
 
 
 	embed = discord.Embed(tittle = "Giveaway!", description = f"{prize}", color = ctx.author.color)
@@ -338,12 +338,7 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
 
-
-	
-
-
 #all the errors
-
 
 #clear error
 @clear.error
