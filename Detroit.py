@@ -259,7 +259,7 @@ def convert(time):
 
 #giveaway command
 @client.command()
-@commands.has_permissions(manage_roles=True, administrator=True, manage_channels=True, manage_server=True)
+@commands.has_permissions(manage_roles=True, administrator=True, manage_channels=True)
 async def giveaway(ctx):
 	await ctx.send("Lets start with giveaway! Answer these questions within 15 seconds")
 
@@ -330,7 +330,7 @@ async def reroll(ctx, channel : discord.Channel, id_ : int):
 	except:
 		await ctx.send("The id was entered incorrectly")
 		return
-		
+
 	users = await new_msg.reactions[0].users().flatten()
 	users.pop(users.index(client.user))
 
