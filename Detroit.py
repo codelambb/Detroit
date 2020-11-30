@@ -183,7 +183,6 @@ async def supportme(ctx):
 #kill command
 @client.command()
 async def kill(ctx, user):
-	import random
 	k = random.randint(0,5)
 	if k == 0:
 		await ctx.send(f'You challenged {user} to a fist fight to the death. You won.')
