@@ -347,17 +347,10 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 #define command
 @client.command()
 async def define(ctx,*, ask):
-	link = wikipedia.page(ask).url
-	definition = wikipedia.summary(ask, sentences=3, chars=1000, auto_suggest=False, redirect=True)
-	if link != None:		
-		search = discord.Embed(color=ctx.author.color)
-		search.add_field(name=ask, value=definition, inline=False)
-		search.add_field(name="Read it yourself!", value=link, inline=False)
-		await ctx.send(embed=search)
-	if link == None:
-		search = discord.Embed(color=ctx.author.color)
-		search.add_field(name=ask, value=definition, inline=False)
-		await ctx.send(embed=search)
+	definition = wikipedia.summary(ask, sentences=3, chars=1000, auto_suggest=False, redirect=True)	
+	search = discord.Embed(color=ctx.author.color)
+	search.add_field(name=ask, value=definition, inline=False)
+	await ctx.send(embed=search)
 
 #all the errors
 
