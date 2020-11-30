@@ -343,26 +343,23 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
 
-def wiki_summary(arg):
-	definition = wikipedia.summary(arg, sentences=3, chars=1000,
-	auto_suggest=True, redirect=True)
-	return definition
-
 @client.command()
 async def define(ctx,*, ask):
-	search = discordEmbed(color=discord.Color.purple())
-	search.add_field(name=ask, value=wiki_summary, inline=False)
-	await message.channel.send(content=None, embed=search)
+	definition = wikipedia.summary(ask, sentences=3, chars=1000, auto_suggest=False, redirect=True)
+	search = discord.Embed(color=ctx.author.color)
+	search.add_field(name=ask, value=definition, inline=False)
+	await ctx.send(embed=search)
 
 #all the errors
 
 #main error
 @client.event
-async def on_command_error(ctx, error):
+async def on_command_erro(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
-		embed = discord.Embed(tittle="error", color=0xff0000)
-		embed.add_field(name="ERROR", value="Invalid command used.")
-		await ctx.send(embed=embed, delete_after=5)
+		await ctx.author.purge()
+		error = discord.Embed(color=0xff0000)
+		error.add_field(name="ERROR", value="Command not found")
+		await ctx.send(embed=error, delete_after=5)
 
 #clear error
 @clear.error
@@ -394,4 +391,4 @@ async def unban_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command or that user is not banned at this server', delete_after=5)
 
-client.run(client.run(os.environ['DISCORD_TOKEN']))
+client.run(os.environ['DISCORD_TOKEN'])
