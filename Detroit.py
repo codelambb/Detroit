@@ -355,14 +355,6 @@ async def define(ctx,*, ask):
 
 #all the errors
 
-#main error
-@client.event
-async def on_command_error(ctx, error):
-	if isinstance(error, commands.CommandNotFound):
-		await ctx.author.purge()
-		error = discord.Embed(color=0xff0000)
-		error.add_field(name="ERROR", value="Command not found")
-		await ctx.send(embed=error, delete_after=5)
 
 #clear error
 @clear.error
