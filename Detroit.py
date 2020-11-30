@@ -3,7 +3,8 @@ from discord.ext import commands, tasks
 import os
 from random import choice
 import aiohttp
-import random
+from random import randint
+import wikipedia
 import time
 import datetime
 import asyncio
@@ -341,6 +342,17 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 	winner = random.choice(users)
 
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
+
+def wiki_summary(arg):
+	definition = wikipedia.summary(arg, sentences=3, chars=1000,
+	auto_suggest=True, redirect=True)
+	return definition
+
+@client.command()
+async def define(ctx,*, ask):
+	search = discordEmbed(color=discord.Color.purple())
+	search.add_field(name=ask, value=wiki_summary, inline=False)
+	await message.channel.send(content=None, embed=search)
 
 #all the errors
 
