@@ -115,7 +115,7 @@ async def info(ctx):
 #help command
 @client.command(aliases=['h'])
 async def help(ctx):
-	helpEmbed = discord.Embed(tittle="Help Menu", color=0x000000)
+	helpEmbed = discord.Embed(tittle="Help Menu", color=ctx.author.color)
 	helpEmbed.set_author(name="Help Menu:\nPrefixes = '.'  'd!'  '$'")
 	helpEmbed.add_field(name="Support Us!", value="```Type .supportme```", inline=False)
 	helpEmbed.add_field(name="Info about us", value="```Type .info```", inline=False)
