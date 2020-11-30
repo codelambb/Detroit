@@ -343,18 +343,21 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
 
+#define command
 @client.command()
 async def define(ctx,*, ask):
+	link = wikipedia.link(ask)
 	definition = wikipedia.summary(ask, sentences=3, chars=1000, auto_suggest=False, redirect=True)
 	search = discord.Embed(color=ctx.author.color)
 	search.add_field(name=ask, value=definition, inline=False)
+	search.add_field(name='Read it yourself!', value=link, inline=False)
 	await ctx.send(embed=search)
 
 #all the errors
 
 #main error
 @client.event
-async def on_command_erro(ctx, error):
+async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		await ctx.author.purge()
 		error = discord.Embed(color=0xff0000)
