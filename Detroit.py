@@ -349,7 +349,8 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		embed = discord.Embed(tittle="error", color=0xff0000)
-		embed.add_field(name="ERROR", value="Invalid command used.", delete_after=5)
+		embed.add_field(name="ERROR", value="Invalid command used.")
+		await ctx.send(embed=embed, delete_after=5)
 
 #clear error
 @clear.error
