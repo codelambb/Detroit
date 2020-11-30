@@ -361,10 +361,6 @@ async def define(ctx,*, ask):
 
 #all the errors
 
-#define error
-@define.error
-async def define_error(ctx, error):
-	if isinstance(error, commands.MissingRequiredArgument):
 		
 
 #clear error
