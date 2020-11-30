@@ -193,7 +193,7 @@ async def kill(ctx, user):
 	if k == 4:
 		await ctx.send(f"{user} presses a random button and is teleported to the height of 100m, allowing them to fall to their inevitable death.\nMoral of the story: Don't go around pressing random buttons.")
 	if k == 5:
-		await ctx.send(f'{user} is sucked into Minecraft. Dank Memer, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
+		await ctx.send(f'{user} is sucked into Minecraft. {member}, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
 
 #addrole command
 @client.command(aliases=["a"])
