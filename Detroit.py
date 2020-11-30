@@ -168,7 +168,7 @@ async def mocd(ctx):
 @client.command(aliases=['mi'])
 async def micd(ctx):
 	misEmbed = discord.Embed(tittle="Miscellaneous Command Menu", color=0xFFFF00)
-	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.avatar (user): Gives the specified user's profile picture or avatar```\n```.meme: Sends a hot meme from reddit```\n")
+	misEmbed.add_field(name="Miscellaneous Command Menu", value="```.ping: Tells the bot latency```\n```.8ball (question): Asks a question to the bot and the bot responds with random yes/no answer```\n```.kill (user_mention): Kills the mentioned user```\n```.avatar (user): Gives the specified user's profile picture or avatar```\n```.meme: Sends a hot meme from reddit```\n```")
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
@@ -327,6 +327,7 @@ async def giveaway(ctx):
 
 	await channel.send(f"Congratulation! {winner.mention} won {prize}!")
 
+#reroll command
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True, manage_channels=True)
 async def reroll(ctx, channel : discord.TextChannel, id_ : int):
@@ -348,13 +349,23 @@ async def reroll(ctx, channel : discord.TextChannel, id_ : int):
 async def define(ctx,*, ask):
 	link = wikipedia.page(ask).url
 	definition = wikipedia.summary(ask, sentences=3, chars=1000, auto_suggest=False, redirect=True)
-	search = discord.Embed(color=ctx.author.color)
-	search.add_field(name=ask, value=definition, inline=False)
-	search.add_field(name='Read it yourself!', value=link, inline=False)
-	await ctx.send(embed=search)
+	if link != None:		
+		search = discord.Embed(color=ctx.author.color)
+		search.add_field(name=ask, value=definition, inline=False)
+		search.add_field(name="Read it yourself!", value=link, inline=False)
+		await ctx.send(embed=search)
+	if link == None:
+		search = discord.Embed(color=ctx.author.color)
+		search.add_field(name=ask, value=definition, inline=False)
+		await ctx.send(embed=search)
 
 #all the errors
 
+#define error
+@define.error
+async def define_error(ctx, error):
+	if isinstance(error, commands.MissingRequiredArgument):
+		
 
 #clear error
 @clear.error
