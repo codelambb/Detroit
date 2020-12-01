@@ -46,7 +46,7 @@ async def ping(ctx):
 
 #clear command
 @client.command(aliases=["purge", "cls"])
-@commands.has_permissions(manage_messages=True)
+@commands.has_permissions(manage_messages=True, administrator=True)
 async def clear(ctx, ammount):
 	await ctx.channel.purge(limit=int(ammount + 1))
 	await ctx.send(f'I have deleted {ammount} messages.', delete_after=5)
@@ -172,11 +172,11 @@ async def micd(ctx):
 	misEmbed.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misEmbed)
 
-#invite command
+#support command
 @client.command(aliases=["sup"])
 async def supportme(ctx):
 	invEmbed = discord.Embed(tittle="Invite link of bot", color=0x00FFFF)
-	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://rb.gy/9wa5wa)", inline=False)
+	invEmbed.add_field(name="Invite Link", value="[Click this to invite the bot](https://discord.com/oauth2/authorize?client_id=781379286924918785&scope=bot&permissions=1372925175)", inline=False)
 	invEmbed.add_field(name="Server Link", value="[Click this to join the server](https://discord.gg/KJ6Twwkafw)", inline=False)
 	invEmbed.add_field(name="Upvote Link", value="[Click this to upvote us!](https://top.gg/bot/781379286924918785)", inline=False)
 	await ctx.send(embed=invEmbed)
