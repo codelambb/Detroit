@@ -219,21 +219,28 @@ async def avatar(ctx, *, member: discord.Member=None):
     await ctx.send(userAvatar)
 
 #mute command
-@client.command()
-@commands.has_permissions(manage_roles=True, administrator=True)
-async def mute(ctx, member: discord.Member, *, reason=None):
-	guild = ctx.guild
-	mutedRole = discord.utils.get(guild.roles, name="Muted")
+@commands.command()
+async def mute(self, ctx, members: commands.Greedy[discord.Member],
+                   mute_minutes: typing.Optional[int] = 0,
+                   *, reason: str = "None"):
+    if not members:
+        await ctx.send("You need to name someone to mute")
+        return
 
-	if not mutedRole:
-		mutedRole = await guild.create_role(name="Muted")
+    muted_role = discord.utils.find(ctx.guild.roles, name="Muted")
 
-		for channel in guild.channels:
-			await channel.set_permissions(mutedRole, speak=False, send_message=False, read_message_history=True, read_messages=False)
+    for member in members:
+        if self.bot.user == member: # what good is a muted bot?
+            embed = discord.Embed(title = "You can't mute me, I'm an almighty bot")
+            await ctx.send(embed = embed)
+            continue
+        await member.add_roles(muted_role, reason = reason)
+        await ctx.send("{0.mention} has been muted by {1.mention} for *{2}*".format(member, ctx.author, reason))
 
-	await member.add_roles(mutedRole, reason=reason)
-	await ctx.send(f'Muted {member.mention} for reason {reason}')
-	await member.send(f'You were muted in the server {guild.name} for {reason}')
+    if mute_minutes > 0:
+        await asyncio.sleep(mute_minutes * 60)
+        for member in members:
+            await member.remove_roles(muted_role, reason = "time's up ")
 
 #unmute command
 @client.command()
@@ -352,9 +359,7 @@ async def define(ctx,*, ask):
 	search.add_field(name=ask, value=definition, inline=False)
 	await ctx.send(embed=search)
 
-#all the errors
-
-		
+#all the errors		
 
 #clear error
 @clear.error
@@ -386,4 +391,10 @@ async def unban_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
 		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command or that user is not banned at this server', delete_after=5)
 
+#define error
+@define.error 
+async def define_error(ctx, error):
+	if isinstance(error. commands.MissingRequiredArgument):
+		await ctx.send('Either you have used the command wrongly or bot cant find definition of that on wikipedia')
+		
 client.run(os.environ['DISCORD_TOKEN'])
