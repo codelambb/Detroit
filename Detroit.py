@@ -9,6 +9,7 @@ import time
 import datetime
 import asyncio
 import random
+import typing
 
 intents = discord.Intents.all()
 prefixes = ["$","d!","."]
@@ -222,7 +223,7 @@ async def avatar(ctx, *, member: discord.Member=None):
 @commands.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def mute(self, ctx, members: commands.Greedy[discord.Member],
-               mute_minutes: = 0,*, reason: str = "None"):
+               mute_minutes: typing.Optional[int] = 0, *, reason: str = "None"):
     if not members:
         await ctx.send("You need to name someone to mute")
         return
