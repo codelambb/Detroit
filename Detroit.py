@@ -47,7 +47,7 @@ async def ping(ctx):
 
 #clear command
 @client.command(aliases=["purge", "cls"])
-@commands.has_permissions(manage_messages=True)
+@commands.has_permissions(manage_messages=True, administrator=True)
 async def clear_chat(ctx, amount:int):
     await ctx.channel.purge(limit=amount)
     await ctx.send(f'I have deleted {ammount} messages.', delete_after=5)
