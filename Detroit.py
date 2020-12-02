@@ -220,37 +220,35 @@ async def avatar(ctx, *, member: discord.Member=None):
     await ctx.send(userAvatar)
 
 #mute command
-@client.command(aliases=["m"])
+@client.command(aliases=['m'])
 @commands.has_permissions(manage_roles=True, administrator=True)
-async def mute(self, ctx, members: discord.Member, mute_minutes: typing.Optional[int] = 0, *, reason = "No reason provided"):
+async def mute(self, ctx, members: commands.Greedy[discord.Member],mute_minutes: typing.Optional[int] = 0,*, reason: str = "None"):
     if not members:
-        await ctx.send(f"You need to name someone to mute")
+        await ctx.send("You need to name someone to mute")
         return
 
     guild = ctx.guild
     muted_role = discord.utils.get(guild.roles, name="Muted")
 
     if not muted_role:
-    	muted_role = await guild.create_role(name="Muted")
+    	muted_role = await gild.create_role(name="Muted")
 
     	for channel in guild.channels:
-    		await channel.set_permissions(muted_role, speak=False, send_messages=False, read_history=True, read_messages=True)
+    		await channel.set_permissions(muted_role, speak=False, send_messages=False, read_messages=True, read_message_history=True)
 
     for member in members:
-        if self.bot.user == member:
+        if self.bot.user == member: # what good is a muted bot?
             embed = discord.Embed(title = "You can't mute me, I'm an almighty bot")
             await ctx.send(embed = embed)
             continue
-       	if mute_minutes == 0:
-        	await member.add_roles(muted_role, reason = reason)
-        	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason} permanently')
-        if mute_minutes > 0:
-        	await member.add_roles(muted_role, reason = reason)
-        	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason} for {mute_minutes}.')
+        await member.add_roles(muted_role, reason = reason)
+        await ctx.send("{0.mention} has been muted by {1.mention} for *{2}*".format(member, ctx.author, reason))
+
     if mute_minutes > 0:
         await asyncio.sleep(mute_minutes * 60)
         for member in members:
             await member.remove_roles(muted_role, reason = "time's up ")
+
 #unmute command
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
@@ -258,7 +256,7 @@ async def unmute(ctx, member: discord.Member):
 	mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 
 	await member.remove_roles(mutedRole)
-	await ctx.send(f'Unmuted {member.mention}')
+	await ctx.send(f'Unmuted {members.mention}')
 	await member.send(f'You have been unmuted from the server {guild.name}')
 
 def convert(time):
