@@ -223,9 +223,9 @@ async def avatar(ctx, *, member: discord.Member=None):
 @client.command(aliases=["m"])
 @commands.has_permissions(manage_roles=True, administrator=True)
 async def mute(self, ctx, members: commands.Greedy[discord.Member],
-               mute_minutes: typing.Optional[int] = 0, *, reason: str = "None"):
+               mute_minutes: typing.Optional[int] = 0, *, reason = "No reason provided"):
     if not members:
-        await ctx.send("You need to name someone to mute")
+        await ctx.send(f"You need to name someone to mute")
         return
 
     guild = ctx.guild
@@ -244,7 +244,7 @@ async def mute(self, ctx, members: commands.Greedy[discord.Member],
             continue
        	if mute_minutes == 0:
         	await member.add_roles(muted_role, reason = reason)
-        	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason}.')
+        	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason} permanently')
         if mute_minutes > 0:
         	await member.add_roles(muted_role, reason = reason)
         	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason} for {mute_minutes}.')
