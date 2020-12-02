@@ -232,10 +232,10 @@ async def mute(self, ctx, members: commands.Greedy[discord.Member],
     muted_role = discord.utils.get(guild.roles, name="Muted")
 
     if not muted_role:
-    	mutedRole = await guild.create_role(name="Muted")
+    	muted_role = await guild.create_role(name="Muted")
 
     	for channel in guild.channels:
-    		await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_history=True, read_messages=True)
+    		await channel.set_permissions(muted_role, speak=False, send_messages=False, read_history=True, read_messages=True)
 
     for member in members:
         if self.bot.user == member:
@@ -243,15 +243,15 @@ async def mute(self, ctx, members: commands.Greedy[discord.Member],
             await ctx.send(embed = embed)
             continue
        	if mute_minutes == 0:
-        	await member.add_roles(mutedRole, reason = reason)
+        	await member.add_roles(muted_role, reason = reason)
         	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason}.')
         if mute_minutes > 0:
-        	await member.add_roles(mutedRole, reason = reason)
+        	await member.add_roles(muted_role, reason = reason)
         	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason} for {mute_minutes}.')
-        	await asyncio.sleep(mute_minutes * 60)
-        	for member in members:
-            	await member.remove_roles(muted_role, reason = "time's up ")
-
+    if mute_minutes > 0:
+        await asyncio.sleep(mute_minutes * 60)
+        for member in members:
+            await member.remove_roles(muted_role, reason = "time's up ")
 #unmute command
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
