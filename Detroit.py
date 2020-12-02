@@ -222,19 +222,16 @@ async def avatar(ctx, *, member: discord.Member=None):
 #mute command
 @client.command(aliases=['m'])
 @commands.has_permissions(manage_roles=True, administrator=True)
-async def mute(self, ctx, members: commands.Greedy[discord.Member],mute_minutes: typing.Optional[int] = 0,*, reasond = "None"):
+async def mute(self, ctx, members: commands.Greedy[discord.Member],
+                   mute_minutes: typing.Optional[int] = 0,
+                   *, reason: str = "None"):
+    """Mass mute members with an optional mute_minutes parameter to time it"""
+
     if not members:
         await ctx.send("You need to name someone to mute")
         return
 
-    guild = ctx.guild
-    muted_role = discord.utils.get(guild.roles, name="Muted")
-
-    if not muted_role:
-    	muted_role = await gild.create_role(name="Muted")
-
-    	for channel in guild.channels:
-    		await channel.set_permissions(muted_role, speak=False, send_messages=False, read_messages=True, read_message_history=True)
+    muted_role = discord.utils.find(ctx.guild.roles, name="Muted")
 
     for member in members:
         if self.bot.user == member: # what good is a muted bot?
