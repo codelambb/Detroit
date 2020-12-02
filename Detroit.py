@@ -222,7 +222,7 @@ async def avatar(ctx, *, member: discord.Member=None):
 #mute command
 @client.command(aliases=['m'])
 @commands.has_permissions(manage_roles=True, administrator=True)
-async def mute(self, ctx, members: commands.Greedy[discord.Member],mute_minutes: typing.Optional[int] = 0,*, reason: str = "None"):
+async def mute(self, ctx, members: commands.Greedy[discord.Member],mute_minutes: typing.Optional[int] = 0,*, reasond = "None"):
     if not members:
         await ctx.send("You need to name someone to mute")
         return
