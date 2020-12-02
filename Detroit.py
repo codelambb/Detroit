@@ -195,7 +195,7 @@ async def kill(ctx, user):
 	if k == 4:
 		await ctx.send(f"{user} presses a random button and is teleported to the height of 100m, allowing them to fall to their inevitable death.\nMoral of the story: Don't go around pressing random buttons.")
 	if k == 5:
-		await ctx.send(f'{user} is sucked into Minecraft. {member}, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
+		await ctx.send(f'{user} is sucked into Minecraft. {user}, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
 
 #addrole command
 @client.command(aliases=["a"])
@@ -228,20 +228,29 @@ async def mute(self, ctx, members: commands.Greedy[discord.Member],
         await ctx.send("You need to name someone to mute")
         return
 
-    muted_role = discord.utils.find(ctx.guild.roles, name="Muted")
+    guild = ctx.guild
+    muted_role = discord.utils.get(guild.roles, name="Muted")
+
+    if not muted_role:
+    	mutedRole = await guild.create_role(name="Muted")
+
+    	for channel in guild.channels:
+    		await channel.set_permissions(mutedRole, speak=False, send_messages=False, read_history=True, read_messages=True)
 
     for member in members:
-        if self.bot.user == member: # what good is a muted bot?
+        if self.bot.user == member:
             embed = discord.Embed(title = "You can't mute me, I'm an almighty bot")
             await ctx.send(embed = embed)
             continue
-        await member.add_roles(muted_role, reason = reason)
-        await ctx.send("{0.mention} has been muted by {1.mention} for *{2}*".format(member, ctx.author, reason))
-
-    if mute_minutes > 0:
-        await asyncio.sleep(mute_minutes * 60)
-        for member in members:
-            await member.remove_roles(muted_role, reason = "time's up ")
+       	if mute_minutes == 0:
+        	await member.add_roles(mutedRole, reason = reason)
+        	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason}.')
+        if mute_minutes > 0:
+        	await member.add_roles(mutedRole, reason = reason)
+        	await ctx.send(f'{member.mention} has been muted by {ctx.author} for {reason} for {mute_minutes}.')
+        	await asyncio.sleep(mute_minutes * 60)
+        	for member in members:
+            	await member.remove_roles(muted_role, reason = "time's up ")
 
 #unmute command
 @client.command()
