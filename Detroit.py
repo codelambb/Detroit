@@ -49,7 +49,7 @@ async def ping(ctx):
 @client.command(aliases=["purge", "cls"])
 @commands.has_permissions(manage_messages=True, administrator=True)
 async def clear(ctx, amount:int):
-    await ctx.channel.purge(limit=amount)
+    await ctx.channel.purge(limit=amount+1)
     await ctx.send(f'I have deleted {ammount} messages.', delete_after=5)
     return
 
@@ -222,10 +222,7 @@ async def avatar(ctx, *, member: discord.Member=None):
 #mute command
 @client.command(aliases=['m'])
 @commands.has_permissions(manage_roles=True, administrator=True)
-async def mute(self, ctx, members: commands.Greedy[discord.Member],
-                   mute_minutes: typing.Optional[int] = 0,
-                   *, reason: str = "None"):
-    """Mass mute members with an optional mute_minutes parameter to time it"""
+async def mute(self, ctx, members: commands.Greedy[discord.Member],mute_minutes: typing.Optional[int] = 0, *, reason: str = "None"):
 
     if not members:
         await ctx.send("You need to name someone to mute")
@@ -381,24 +378,24 @@ async def _8ball_error(ctx, error):
 @ban.error
 async def ban_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.', delete_after=5)
+		await ctx.send('Either you have used the command incorrecly or you dont have permission to use this command.', delete_after=5)
 
 #kick error
 @kick.error
 async def kick_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command.', delete_after=5)
+		await ctx.send('Either you have used the command incorrecly or you dont have permission to use this command.', delete_after=5)
 
 #unban error
 @unban.error
 async def unban_error(ctx, error):
 	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.send('Either you have used the command wrongly or you dont have permission to use this command or that user is not banned at this server', delete_after=5)
+		await ctx.send('Either you have used the command incorrecly or you dont have permission to use this command or that user is not banned at this server', delete_after=5)
 
 #define error
 @define.error 
 async def define_error(ctx, error):
-	if isinstance(error. commands.MissingRequiredArgument):
-		await ctx.send('Either you have used the command wrongly or bot cant find definition of that on wikipedia')
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.send('Either you have used the command incorrecly or bot cant find definition of that on wikipedia')
 		
 client.run(os.environ['DISCORD_TOKEN'])
